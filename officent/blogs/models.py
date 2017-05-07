@@ -7,6 +7,7 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.String(20))
     user_psw = db.Column(db.String(80))
+    user_info = db.relationship("UserInfo", backref='Users', lazy='joined',uselist=False)
 
     def __init__(self, username, password):
         self.user_name = username
@@ -17,8 +18,8 @@ class Users(db.Model):
 
 
 class UserInfo(db.Model):
-    __tablename__ = 'UserInfo'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.ForeignKey(Users.id))
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
     lasted_lst = db.Column(db.JSON(none_as_null=True))
-    is_vip = db.Column(db.Integer())  # 0 普通用户 1 VIP 2 管理员
+    is_vip = db.Column(db.Integer)  # 0 普通用户 1 VIP 2 管理员
+
