@@ -1,11 +1,11 @@
 # coding:utf-8
 from blogs import db
+from flask.ext.login import UserMixin
 
-
-class Users(db.Model):
+class Users(db.Model,UserMixin):
     __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_name = db.Column(db.String(20))
+    user_name = db.Column(db.String(20),unique=True)
     user_psw = db.Column(db.String(80))
     user_info = db.relationship("UserInfo", backref='Users', lazy='joined',uselist=False)
 

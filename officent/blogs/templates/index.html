@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Office Night</h2>
-    {% if session.get('logged_in') %}
+    {% if current_user.is_authenticated %}
     <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}
     <a href="{{ url_for('login') }}">Login</a>
