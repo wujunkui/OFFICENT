@@ -1,6 +1,7 @@
 # coding:utf-8
 from blogs import db
 from flask.ext.login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Users(db.Model,UserMixin):
     __tablename__ = 'Users'
@@ -12,6 +13,9 @@ class Users(db.Model,UserMixin):
     def __init__(self, username, password):
         self.user_name = username
         self.user_psw = password
+
+    def check_password(self,password):
+        return check_password_hash(self.user_psw,password)
 
     def __repr__(self):
         return '<User:{0}>'.format(self.user_name)
