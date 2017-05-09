@@ -1,17 +1,14 @@
-from hashlib import md5
+# coding:utf-8
+from public import Log
 from flask import redirect
-import blogs
+from blogs import db
 from blogs.auth import auth
 from blogs.models import Users, UserInfo
 from flask import request, render_template, url_for, flash, abort, session
 from flask.ext.login import login_required, login_user, logout_user
-from .forms import LoginForm
+from .forms import LoginForm, RegistForm
 
-
-@auth.route('/')
-def index():
-    return render_template('index.html')
-
+LOG = Log()
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -24,10 +21,10 @@ def login():
         if user and user.check_password(psw):
             login_user(user)
             flash('Logged in success')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         else:
             error = "Password error!"
-    return render_template('login.html', error=error,form=form)
+    return render_template('login.html', error=error, form=form)
 
 
 @auth.route('/logout')
@@ -38,8 +35,19 @@ def logout():
     flash('you logged out')
     return redirect(url_for('index'))
 
-@auth.route('/register')
+
+@auth.route('/register', methods=['POST', 'GET'])
 def user_register():
-    if request.method.upper() == 'POST':
-        pass
-    return render_template('register.html')
+    form = RegistForm()
+    error = None
+    if form.validate_on_submit():
+        new_user = Users(form.username.data, form.password.data)
+        db.session.add(new_user)
+        try:
+            db.session.commit()
+            return redirect(url_for('main.index'))
+        except Exception as e:
+            LOG.error(str(e))
+            error = u"用户已被注册"
+
+    return render_template('register.html', form=form, error=error)
