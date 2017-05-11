@@ -51,3 +51,10 @@ def user_register():
             error = u"用户已被注册"
 
     return render_template('register.html', form=form, error=error)
+
+@auth.route(r'/info/<name>')
+def user_info(name):
+    username = name
+    # username = request.args.get('username')
+    flash(u"Hi {0}".format(username))
+    return ""

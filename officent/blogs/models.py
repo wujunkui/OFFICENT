@@ -27,3 +27,7 @@ class UserInfo(db.Model):
     lasted_lst = db.Column(db.JSON(none_as_null=True))
     is_vip = db.Column(db.Integer)  # 0 普通用户 1 VIP 2 管理员
 
+class Catories(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+
