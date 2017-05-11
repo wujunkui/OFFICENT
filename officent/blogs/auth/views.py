@@ -20,10 +20,10 @@ def login():
 
         if user and user.check_password(psw):
             login_user(user)
-            flash('Logged in success')
+            flash(u'登录成功')
             return redirect(url_for('main.index'))
         else:
-            error = "Password error!"
+            error = u"用户名或密码错误!"
     return render_template('login.html', error=error, form=form)
 
 
@@ -32,8 +32,8 @@ def login():
 def logout():
     # session.pop('logged_in')
     logout_user()
-    flash('you logged out')
-    return redirect(url_for('index'))
+    flash(u'退出登录状态')
+    return redirect(url_for('main.index'))
 
 
 @auth.route('/register', methods=['POST', 'GET'])
