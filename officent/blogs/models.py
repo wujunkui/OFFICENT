@@ -24,7 +24,7 @@ class Users(db.Model,UserMixin):
 class UserInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
-    lasted_lst = db.Column(db.JSON(none_as_null=True))
+    # lasted_lst = db.Column(db.JSON(none_as_null=True))
     is_vip = db.Column(db.Integer)  # 0 普通用户 1 VIP 2 管理员
 
 class Catories(db.Model):

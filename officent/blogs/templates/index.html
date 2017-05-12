@@ -39,6 +39,10 @@
             </div>
         {% endfor %}
         {% block page_body %}
+            <form action="{{ url_for('auth.upload_file',name=current_user.user_name) }}" class="form" method="post">
+                <input type="file" class="input" name="file_up">
+                <input type="submit" class="submit" value="submit">
+            </form>
             <table class="table">
 
             </table>

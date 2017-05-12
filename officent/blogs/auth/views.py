@@ -58,3 +58,9 @@ def user_info(name):
     # username = request.args.get('username')
     flash(u"Hi {0}".format(username))
     return ""
+
+@auth.route('/upload/<name>',methods=['POST'])
+def upload_file(name):
+    f = request.files['file_up']
+    f.save()
+    return ''
