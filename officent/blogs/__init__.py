@@ -10,7 +10,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
-from blogs.models import Users, UserInfo
+from blogs.models import Users,Catories
 
 def create_app():
     app = Flask(__name__)

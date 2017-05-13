@@ -5,7 +5,7 @@ from public import Log
 from flask import redirect, current_app
 from blogs import db
 from blogs.auth import auth
-from blogs.models import Users, UserInfo
+from blogs.models import Users, Catories
 from flask import request, render_template, url_for, flash, abort, session
 from flask.ext.login import login_required, login_user, logout_user, current_user
 from .forms import LoginForm, RegistForm
@@ -58,14 +58,16 @@ def user_register():
 
 
 @auth.route(r'/info/<name>')
+@login_required
 def user_info(name):
     username = name
     # username = request.args.get('username')
     flash(u"Hi {0}".format(username))
-    return ""
+    return render_template('user_info.html')
 
 
 @auth.route('/upload/<name>', methods=['POST'])
+@login_required
 def upload_file(name):
     f = request.files['file_up']
     real_filename = secure_filename(f.filename)
