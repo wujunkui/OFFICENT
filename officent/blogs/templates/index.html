@@ -39,13 +39,27 @@
             </div>
         {% endfor %}
         {% block page_body %}
-            <form action="{{ url_for('auth.upload_file',name=current_user.user_name) }}" class="form" method="post"
-                  enctype="multipart/form-data">
-                <input type="file" class="input" name="file_up">
-                <input type="submit" class="submit" value="submit">
-            </form>
-            <table class="table">
 
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>图片</th>
+                    <th>名字</th>
+                    <th>作者</th>
+                    <th>阅读量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for catory in catorys %}
+                    <tr>
+                        <td><img src="{{ catory.show_imge }}"></td>
+                        <td><a href="#">{{ catory.data_name }}</a></td>
+                        <td><a href="#">{{ catory.author }}</a></td>
+                        <td><p>{{ catory.read_num }}</p></td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
             </table>
         {% endblock %}
     </div>

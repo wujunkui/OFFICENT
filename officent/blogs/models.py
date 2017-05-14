@@ -38,6 +38,20 @@ class Users(db.Model, UserMixin):
 
 class Catories(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    data_name = db.Column(db.String(128))
+    show_imge = db.Column(db.String(128))
+    data_name = db.Column(db.String(128),unique=True)
     data_path = db.Column(db.String(256))
     author = db.Column(db.String(20), db.ForeignKey('Users.user_name'))
+    read_num = db.Column(db.Integer, default=0)
+    collect_num = db.Column(db.Integer, default=0)
+
+    # comments_num = db.Column(db.Integer, default=0)
+
+    def __repr__(self):
+        return '<Catory:%r>' % self.data_name
+
+    def add_reads(self, num=1):
+        self.read_num += num
+
+    def add_collects(self, num=1):
+        self.read_num += num
