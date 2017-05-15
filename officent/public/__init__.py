@@ -2,6 +2,8 @@
 import logging
 import os
 
+import time
+
 WORK_SPACE = os.path.dirname(os.path.dirname(__file__))
 class Log(object):
     def __new__(cls, *args, **kwargs):
@@ -31,3 +33,5 @@ class Log(object):
     def info(self,msg):
         self.logger.info(msg)
 
+def get_time_str():
+    return '{0}'.format(time.time())

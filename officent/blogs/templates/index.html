@@ -39,6 +39,7 @@
             </div>
         {% endfor %}
         {% block page_body %}
+            <a href="{{ url_for('main.add_catory') }}">上传你的故事</a>
 
             <table class="table">
                 <thead>
@@ -52,7 +53,7 @@
                 <tbody>
                 {% for catory in catorys %}
                     <tr>
-                        <td><img src="{{ catory.show_imge }}"></td>
+                        <td><img src="{{ url_for('static',filename=catory.show_imge) }}"></td>
                         <td><a href="#">{{ catory.data_name }}</a></td>
                         <td><a href="#">{{ catory.author }}</a></td>
                         <td><p>{{ catory.read_num }}</p></td>

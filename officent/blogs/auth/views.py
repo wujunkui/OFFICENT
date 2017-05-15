@@ -49,6 +49,7 @@ def user_register():
         db.session.add(new_user)
         try:
             db.session.commit()
+            login_user(new_user)
             return redirect(url_for('main.index'))
         except Exception as e:
             LOG.error(str(e))

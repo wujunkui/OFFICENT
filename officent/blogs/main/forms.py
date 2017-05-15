@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField,FileField
 from wtforms.validators import DataRequired
 
-class Catory(FlaskForm):
+class CatoryForm(FlaskForm):
     catory_imge = FileField(u'展示图片')
     catory_name = StringField(u'音频标题',validators=[DataRequired()])
     catory_data = FileField(u'上传夜话',validators=[DataRequired()])

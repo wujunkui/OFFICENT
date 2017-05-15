@@ -11,6 +11,6 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_DATABASE_URI = 'sqlite:////' + ROOT_PATH + '/db/test.db'
 # SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3306/devlop'
 
-UPLOAD_DIR = os.path.join(ROOT_PATH,'uploads')
+UPLOAD_DIR = os.path.join(ROOT_PATH,'blogs/static','uploads')
 
 ALLOW_FILES = ['jpg','gif','png','jpeg']
