@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a href="#"><h2>Office Night</h2></a>
+                <a href="/"><h2>Office Night</h2></a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
@@ -41,27 +41,43 @@
         {% block page_body %}
             <a href="{{ url_for('main.add_catory') }}">上传你的故事</a>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>图片</th>
-                    <th>名字</th>
-                    <th>作者</th>
-                    <th>阅读量</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="row">
                 {% for catory in catorys %}
-                    <tr>
-                        <td><img src="{{ url_for('static',filename=catory.show_imge) }}"></td>
-                        <td><a href="#">{{ catory.data_name }}</a></td>
-                        <td><a href="#">{{ catory.author }}</a></td>
-                        <td><p>{{ catory.read_num }}</p></td>
-                    </tr>
-
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}"><img src="{{ url_for('static',filename=catory.show_imge) }}"></a>
+                            <div class="caption">
+                                <h3><a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}">{{ catory.data_name }}</a></h3>
+                                <h5><a href="#">{{ catory.author }}</a></h5>
+                                <p>阅读量:{{ catory.read_num }}</p>
+                                <p>简介：...</p>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-                </tbody>
-            </table>
+            </div>
+
+            {#            <table class="table">#}
+            {#                <thead>#}
+            {#                <tr>#}
+            {#                    <th>图片</th>#}
+            {#                    <th>名字</th>#}
+            {#                    <th>作者</th>#}
+            {#                    <th>阅读量</th>#}
+            {#                </tr>#}
+            {#                </thead>#}
+            {#                <tbody>#}
+            {#                {% for catory in catorys %}#}
+            {#                    <tr>#}
+            {#                        <td><img src="{{ url_for('static',filename=catory.show_imge) }}"></td>#}
+            {#                        <td><a href="#">{{ catory.data_name }}</a></td>#}
+            {#                        <td><a href="#">{{ catory.author }}</a></td>#}
+            {#                        <td><p>{{ catory.read_num }}</p></td>#}
+            {#                    </tr>#}
+            {##}
+            {#                {% endfor %}#}
+            {#                </tbody>#}
+            {#            </table>#}
         {% endblock %}
     </div>
 {% endblock %}

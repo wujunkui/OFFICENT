@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block page_body %}
+
+    <div class="container">
+        <div><img src="{{ url_for('static',filename=catory.show_imge) }}" alt=""></div>
+        <h2>{{ catory.data_name }}</h2>
+        <h3>{{ catory.author }}</h3>
+        <audio autoplay="autoplay" loop="loop" controls="controls">
+            <source id="{{ catory.id }}" src="{{ url_for('static',filename=catory.data_path) }}">
+        </audio>
+
+    </div>
+
+{% endblock %}
