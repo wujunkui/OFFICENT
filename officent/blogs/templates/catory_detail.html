@@ -2,12 +2,21 @@
 {% block page_body %}
 
     <div class="container">
-        <div><img src="{{ url_for('static',filename=catory.show_imge) }}" alt=""></div>
-        <h2>{{ catory.data_name }}</h2>
-        <h3>{{ catory.author }}</h3>
-        <audio autoplay="autoplay" loop="loop" controls="controls">
-            <source id="{{ catory.id }}" src="{{ url_for('static',filename=catory.data_path) }}">
-        </audio>
+        <div class="row">
+            <div class="col-xs-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ url_for('static',filename=catory.show_imge) }}" alt="">
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <h2>{{ catory.data_name }}</h2>
+                <h3>{{ catory.author }}</h3>
+                <audio autoplay="autoplay" loop="loop" controls="controls">
+                    <source id="{{ catory.id }}" src="{{ url_for('static',filename=catory.data_path) }}">
+                </audio>
+            </div>
+        </div>
+
 
     </div>
 

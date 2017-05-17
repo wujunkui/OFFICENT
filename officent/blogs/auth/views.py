@@ -2,14 +2,14 @@
 import os
 
 from public import Log
-from flask import redirect, current_app
+from flask import redirect, current_app,jsonify
+from flask import request, render_template, url_for, flash, abort, session
 from blogs import db
 from blogs.auth import auth
 from blogs.models import Users, Catories
-from flask import request, render_template, url_for, flash, abort, session
 from flask.ext.login import login_required, login_user, logout_user, current_user
 from .forms import LoginForm, RegistForm
-from werkzeug.utils import secure_filename
+from public import save_upload_file
 
 LOG = Log()
 
@@ -61,26 +61,18 @@ def user_register():
 @auth.route(r'/info/<name>')
 @login_required
 def user_info(name):
-    username = name
+    if name == current_user.user_name:
+        user = current_user
+    else:
+        user = Users.query.filter_by(user_name=name).first()
+    if not user:
+        abort(404)
     # username = request.args.get('username')
-    flash(u"Hi {0}".format(username))
-    return render_template('user_info.html')
+    # flash(u"Hi {0}".format(username))
+    return render_template('user_info.html',user=user)
 
 
-@auth.route('/upload/<name>', methods=['POST'])
+@auth.route('/upload_avatar', methods=['POST'])
 @login_required
-def upload_file(name):
-    f = request.files['file_up']
-    real_filename = secure_filename(f.filename)
-    ext = real_filename.rsplit('.', 1)[1]
-    if not ext in current_app.config['ALLOW_FILES']:
-        LOG.error(real_filename)
-        flash(u'不支持的文件格式')
-        return redirect(url_for('main.index'))
-    save_filepath = os.path.join(current_app.config['UPLOAD_DIR'], current_user.user_name)
-    if not os.path.exists(save_filepath):
-        os.mkdir(save_filepath)
-
-    f.save(os.path.join(save_filepath, real_filename))
-    flash(u'上传文件成功')
-    return redirect(url_for('main.index'))
+def upload_file():
+    pass

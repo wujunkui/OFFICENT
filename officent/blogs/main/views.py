@@ -40,6 +40,7 @@ def add_catory():
 
         db.session.add(new_catory)
         db.session.commit()
+        # current_user.user_catory.append(new_catory)
         flash(u'上传成功')
         return redirect(url_for('main.index'))
     return render_template('add_catory.html', form=form, error=error)

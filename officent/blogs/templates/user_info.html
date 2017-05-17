@@ -1,16 +1,62 @@
 {% extends 'index.html' %}
 {% block page_body %}
     <a href="{{ url_for('main.index') }}">回到首页</a>
-    <div class="user_image">
-    <img src="{{ current_user.user_avatar }}">
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <div class="thumbnail">
+                {% if user.user_name == current_user.user_name %}
+                    <a href="#" id="upload_avatar">
+                        <img src="{{ current_user.user_avatar }}" class="img-circle">
+                    </a>
+                {% else %}
+                    <img src="{{ current_user.user_avatar }}" class="img-circle">
+                {% endif %}
+            </div>
+        </div>
+    <div class="col-xs-6 col-md-4">
+        <div>
+            <h2 id="user_name">{{ user.user_name }}</h2>
+        </div>
+    </div>
+    </div>
+    <div id="base_info">
+    {% if  user.email_addr  %}
+        <p>Email: {{ user.email_addr }}</p>
+    {% else %}
+        <p>Email: 该用户暂未添加邮箱</p>
+    {% endif %}
 
     </div>
-    <div class="base_info">
-    <p>Email:</p>
-    {{ current_user.email_addr }}
+    <div id="catories">
+        {% for catory in user.user_catory %}
+            <p><a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}">{{ catory.data_name }}</a>
+        {% endfor %}
     </div>
-    <div class="likes">
+    <script>
+    $("#upload_avatar").click(function(){
+			var value = $("#imageInput").val();
+			if(Utils.isEmpty(value)){
+				//alert("请选择文件");
+				return false;
+			}
+			if(!value.match(/.jpg|.jpeg|.gif|.png|.bmp/i)){
+				//alert("文件格式错误");
+				return false;
+			}
 
-    </div>
-
+			$.ajaxFileUpload({
+				 url:'',
+                 secureuri:false,  	//是否启用安全提交,默认false
+                 dataType:'JSON',  //预期服务器返回的数据类型
+                 fileElementId:'imageInput', //文件域id值
+                 data:{'name':'abc'}, 		 //其它参数
+                 success:function(data,status){
+					 alert(data);
+                 },
+                 error:function(data,status,_exception){
+                	 alert(_exception);
+                 }
+			});
+		});
+    </script>
 {% endblock %}

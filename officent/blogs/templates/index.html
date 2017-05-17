@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a href="/"><h2>Office Night</h2></a>
+                <a href="/"><h2>OfficeNight</h2></a>
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
@@ -19,7 +19,7 @@
                         <li>
                             <a href="{{ url_for('auth.user_info',name=current_user.user_name) }}">{{ current_user.user_name }}</a>
                         </li>
-                        <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
                     {% else %}
                         <li><a href="{{ url_for('auth.login') }}">登录</a></li>
                         <li><a href="{{ url_for('auth.user_register') }}">注册</a></li>
@@ -45,10 +45,12 @@
                 {% for catory in catorys %}
                     <div class="col-sm-6 col-md-3">
                         <div class="thumbnail">
-                            <a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}"><img src="{{ url_for('static',filename=catory.show_imge) }}"></a>
+                            <a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}">
+                                <img src="{{ url_for('static',filename=catory.show_imge) }}" alt="图片找不到啦">
+                            </a>
                             <div class="caption">
                                 <h3><a href="{{ url_for('main.catory_detail',catory_name=catory.data_name) }}">{{ catory.data_name }}</a></h3>
-                                <h5><a href="#">{{ catory.author }}</a></h5>
+                                <h5><a href="{{ url_for('auth.user_info',name=catory.author) }}">{{ catory.author }}</a></h5>
                                 <p>阅读量:{{ catory.read_num }}</p>
                                 <p>简介：...</p>
                             </div>
